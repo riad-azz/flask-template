@@ -1,0 +1,13 @@
+body,html{
+    height: 100%;
+}
+
+body{
+    color: white;
+    background: #212121;
+}
+
+.auth-error{
+    font-size: 14px;
+    color: #ff8383;
+}

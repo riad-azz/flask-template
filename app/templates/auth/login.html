@@ -1,0 +1,42 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}
+Home
+{% endblock title %}
+
+{% block body %}
+<div class="container text-center mt-4" style="max-width: 600px;">
+    <form class="auth-form border px-5 py-3 mx-auto text-left" method="POST">
+        {{ form.hidden_tag() }}
+
+        <div class="h3 mb-3 font-weight-normal">
+           Sign in to your account
+        </div>
+
+        <div class="form-group">
+            {{ form.username.label() }}
+            {{ form.username(class="form-control", placeholder="Enter username", autofocus=true, autocomplete="off") }}
+            {% if form.username.errors %}
+            <span class="mb-1 auth-error">{{form.username.errors[0]}}</span>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.password.label() }}
+            {{ form.password(class="form-control", placeholder="Enter password") }}
+            {% if form.password.errors %}
+            <span class="mb-1 auth-error">{{form.password.errors[0]}}</span>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            <span>Do not have an account?</span>
+            <a class="span-link" href="{{url_for('register_page')}}">Create account</a>
+        </div>
+
+        <div class="d-flex w-100 justify-content-center">
+            {{ form.submit(class="btn btn-primary mt-2 w-50") }}
+        </div>
+    </form>
+</div>
+{% endblock body %}
