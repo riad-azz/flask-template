@@ -46,16 +46,23 @@
     class="flex justify-between py-1.5 px-4 md:p-1 md:items-center md:justify-center md:w-10 md:h-10 md:rounded-full text-white bg-[#1e293b] hover:bg-[#64748b] dark:text-black dark:bg-[#fafaf9] dark:hover:bg-[#e7e5e4] rounded"
   >
     <span class="md:hidden">{{ text }}</span>
-    {% include 'svg/sun-icon.svg' %}
-    {% include 'svg/moon-icon.svg' %}
-
+    <img
+      id="light-icon"
+      class="hidden w-8 h-8"
+      src="/images/svg/sun-icon.svg"
+    />
+    <img
+      id="dark-icon"
+      class="hidden w-8 h-8"
+      src="/images/svg/moon-icon.svg"
+    />
     <script>
       // CHANGE THEM (DARK/LIGHT)
       try {
         (() => {
           const themeButton = document.getElementById("theme-button");
-          const lightIcon = document.getElementById("sun-icon");
-          const darkIcon = document.getElementById("moon-icon");
+          const lightIcon = document.getElementById("light-icon");
+          const darkIcon = document.getElementById("dark-icon");
 
           const toggleThemeIcons = (theme) => {
             if (theme === "light") {
