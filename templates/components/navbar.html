@@ -46,23 +46,26 @@
     class="flex justify-between py-1.5 px-4 md:p-1 md:items-center md:justify-center md:w-10 md:h-10 md:rounded-full text-white bg-[#1e293b] hover:bg-[#64748b] dark:text-black dark:bg-[#fafaf9] dark:hover:bg-[#e7e5e4] rounded"
   >
     <span class="md:hidden">{{ text }}</span>
-    <svg
-      fill="none"
-      height="24"
-      viewBox="0 0 24 24"
-      width="24"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22ZM12 20V4C16.4183 4 20 7.58172 20 12C20 16.4183 16.4183 20 12 20Z"
-        fill="currentColor"
-      />
-    </svg>
+    {% include 'svg/sun-icon.svg' %}
+    {% include 'svg/moon-icon.svg' %}
+
     <script>
       // CHANGE THEM (DARK/LIGHT)
       try {
         (() => {
           const themeButton = document.getElementById("theme-button");
+          const lightIcon = document.getElementById("sun-icon");
+          const darkIcon = document.getElementById("moon-icon");
+
+          const toggleThemeIcons = (theme) => {
+            if (theme === "light") {
+              darkIcon.classList.remove("hidden");
+              lightIcon.classList.add("hidden");
+            } else {
+              lightIcon.classList.remove("hidden");
+              darkIcon.classList.add("hidden");
+            }
+          };
 
           const toggleTheme = async () => {
             themeButton.disabled = true;
@@ -70,9 +73,16 @@
             const newTheme = document.documentElement.classList.contains("dark")
               ? "dark"
               : "light";
+            toggleThemeIcons(newTheme);
             await fetch(`/set-theme/${newTheme}`);
             themeButton.disabled = false;
           };
+
+          toggleThemeIcons(
+            document.documentElement.classList.contains("dark")
+              ? "dark"
+              : "light"
+          );
           themeButton.onclick = toggleTheme;
         })();
       } catch (error) {
