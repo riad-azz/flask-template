@@ -2,7 +2,6 @@ from flask import Flask
 
 from app.routes import api_bp, pages_bp
 from app.extensions import cors, limiter
-from app.utils.flask import error_response
 from app.config import DevConfig, ProdConfig
 
 

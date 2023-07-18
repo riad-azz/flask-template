@@ -6,22 +6,22 @@ from werkzeug.exceptions import BadRequest, InternalServerError
 
 # Local modules
 from app.models.example import ExampleModel
-from app.utils.flask import json_response
+from app.utils.api import success_response
 
-example_bp = Blueprint("example", __name__, url_prefix="/example")
+examples_bp = Blueprint("examples", __name__, url_prefix="/examples")
 
 
-@example_bp.route("/success", methods=["GET"])
+@examples_bp.route("/success", methods=["GET"])
 def example_api_success():
-    data = ExampleModel(name="riad-azz", message="Successful API response")
-    return json_response(data, 200)
+    data = ExampleModel(title="riad-azz", content="Successful API response")
+    return success_response(data, 200)
 
 
-@example_bp.route("/bad-request", methods=["GET"])
+@examples_bp.route("/bad-request", methods=["GET"])
 def example_api_bad_request():
     raise BadRequest("Bad Request")
 
 
-@example_bp.route("/internal-server-error", methods=["GET"])
+@examples_bp.route("/internal-server-error", methods=["GET"])
 def example_api_internal_server_error():
     raise InternalServerError("Internal Server Error")

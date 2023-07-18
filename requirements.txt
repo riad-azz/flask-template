@@ -5,3 +5,4 @@ python-dotenv
 redis
 gunicorn
 pytest
+dataclasses-serialization

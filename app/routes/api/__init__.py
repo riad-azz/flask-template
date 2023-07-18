@@ -5,10 +5,10 @@ from flask import Blueprint
 from flask_limiter.errors import RateLimitExceeded
 
 # Local modules
-from app.utils.flask import error_response
+from app.utils.api import error_response
 
 # Blueprint modules
-from .example import example_bp
+from .examples import examples_bp
 
 api_bp = Blueprint("api", __name__, url_prefix="/api")
 
@@ -24,13 +24,4 @@ def handle_error(error):
         return error_response()
 
 
-# @api_bp.errorhandler(429)
-# def handle_rate_limit_exceeded(e):
-#     if isinstance(e, RateLimitExceeded):
-#         current_limit = e.limit.limit
-#         return error_response(f"Too many requests: {current_limit}", 429)
-#     else:
-#         return error_response("Too many requests, please try again later", 429)
-
-
-api_bp.register_blueprint(example_bp)
+api_bp.register_blueprint(examples_bp)
