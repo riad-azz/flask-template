@@ -28,5 +28,5 @@ limiter = Limiter(
     strategy="moving-window",  # or "fixed-window"
     headers_enabled=True,
     enabled=RATELIMIT_ENABLED,
-    default_limits_exempt_when=default_exempt_when,
+    # default_limits_exempt_when=default_exempt_when,
 )

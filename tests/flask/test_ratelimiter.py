@@ -9,7 +9,7 @@ def app():
     app = create_app()
     limiter.enabled = True
 
-    @app.route('/')
+    @app.route('/api/test')
     @limiter.limit(key_func=get_remote_address, limit_value="5 per minute")
     def index():
         return "Test route"
@@ -21,11 +21,11 @@ def test_rate_limiter(app):
     with app.test_client() as client:
         # Send 5 requests within the rate limit
         for _ in range(5):
-            response = client.get('/')
+            response = client.get('/api/test')
             assert response.status_code == 200
             assert response.data.decode('utf-8') == "Test route"
 
         # Send another request, which should exceed the rate limit
-        response = client.get('/')
+        response = client.get('/api/test')
         assert response.status_code == 429
         assert response.headers['Retry-After'] is not None

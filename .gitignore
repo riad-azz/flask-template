@@ -1,5 +1,11 @@
-.venv
 .idea
-.env.local
+.env
 **/__pycache___
 .pytest_cache
+**/.vscode
+**/node_modules
+**/venv
+**/__pycache__
+**/.next
+**/.idea
+**/.env
