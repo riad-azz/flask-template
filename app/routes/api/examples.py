@@ -5,6 +5,7 @@ from flask import Blueprint
 from werkzeug.exceptions import BadRequest, InternalServerError
 
 # Local modules
+from app.models.example import ExampleModel
 from app.utils.flask import json_response
 
 example_bp = Blueprint("example", __name__, url_prefix="/example")
@@ -12,7 +13,7 @@ example_bp = Blueprint("example", __name__, url_prefix="/example")
 
 @example_bp.route("/success", methods=["GET"])
 def example_api_success():
-    data = {"response": "Successful API response"}
+    data = ExampleModel(name="riad-azz", message="Successful API response")
     return json_response(data, 200)
 
 
