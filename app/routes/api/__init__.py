@@ -20,6 +20,7 @@ def handle_error(error):
     elif isinstance(error, HTTPException):
         return error_response(error.description, error.code)
     else:
+        print(error)
         return error_response()
 
 

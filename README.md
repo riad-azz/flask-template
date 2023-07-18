@@ -98,7 +98,7 @@ class ExampleModel:
 For API error handling use `werkzeug.exceptions` exception classes, and if you would like to create custom
 exceptions make sure that your exceptions inherit from `HTTPException`.
 
-Here is the error handler for the `/api` paths:
+The API error handler can be found in `app/routes/api/__init__.py`:
 
 ```python
 # Flask modules
@@ -119,8 +119,11 @@ def handle_error(error):
     elif isinstance(error, HTTPException):
         return error_response(error.description, error.code)
     else:
+        print(error)
         return error_response()
 ```
+
+If the exception is unknown the API will return a `Internal Server Error` by default from the `error_response()` function.
 
 ### API Responses Examples
 
