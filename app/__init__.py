@@ -1,42 +1,32 @@
-# Flask modules
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager
-from flask_bcrypt import Bcrypt
 
-# Other modules
-from os import path
-from pathlib import Path
+from app.routes import api_bp, pages_bp
+from app.extensions import cors, limiter
+from app.utils.flask import error_response
+from app.config import DevConfig, ProdConfig
 
-# Flask App
-BASE_DIR = Path(__file__).resolve().parent.parent
-STATIC_DIR = path.join(BASE_DIR, "static")
-TEMPLATE_DIR = path.join(BASE_DIR, "templates")
-app = Flask(
-    __name__,
-    static_folder=STATIC_DIR,
-    static_url_path="",
-    template_folder=TEMPLATE_DIR,
-)
 
-# App Configs
-app.config["TESTING"] = True
-app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{BASE_DIR}/database/database.db"
-app.config["SECRET_KEY"] = "YOUR_SECRET_KEY"
+def create_app(debug: bool = False):
+    # Create the Flask application instance
+    app = Flask(__name__,
+                template_folder="../templates",
+                static_folder="../static",
+                static_url_path="/")
 
-# ---- App Managers ----
-# Database manager
-db = SQLAlchemy(app)
-# Encryption manager
-bcrypt = Bcrypt(app)
-# Auth manager
-login_manager = LoginManager(app)
-# login_manager.login_view = 'login_page'
-# login_manager.login_message = 'Please sign in to continue.'
-# login_manager.login_message_category = 'info'
+    if debug:
+        app.config.from_object(DevConfig)
+    else:
+        app.config.from_object(ProdConfig)
 
-# App Models
-from app import models
+    # Initialize extensions
+    cors.init_app(app)
+    limiter.init_app(app)
 
-# App Routes
-from app import views
+    # Register blueprints or routes
+    app.register_blueprint(pages_bp)
+    app.register_blueprint(api_bp)
+
+    # Set current_app context
+    app.app_context().push()
+
+    return app

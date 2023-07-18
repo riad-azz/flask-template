@@ -1,0 +1,7 @@
+Flask
+Flask-Cors
+Flask-Limiter
+python-dotenv
+redis
+gunicorn
+pytest

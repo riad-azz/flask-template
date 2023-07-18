@@ -1,3 +1,5 @@
-node_modules/
-*.db
-**__pycache__
+.venv
+.idea
+.env.local
+**/__pycache___
+.pytest_cache
