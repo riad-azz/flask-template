@@ -1,7 +1,7 @@
 # Flask Starter Template
 
 A simple Flask app starter template. This is my preference to bootstrap my Flask projects and not a must follow
-structure, feel free to change whatever you don't like to your liking.
+structure, feel free to change whatever you dislike to fit what you are comfortable with.
 
 Here is a list of the available features:
 
