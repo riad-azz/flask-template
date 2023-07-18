@@ -96,9 +96,21 @@ class ExampleModel:
 ### Error handling
 
 For API error handling use `werkzeug.exceptions` exception classes, and if you would like to create custom
-exceptions make sure that your exceptions inherit from `HTTPException`, here is the error handler for the `/api` paths:
+exceptions make sure that your exceptions inherit from `HTTPException`.
+
+Here is the error handler for the `/api` paths:
 
 ```python
+# Flask modules
+from flask import Blueprint
+from werkzeug.exceptions import HTTPException
+from flask_limiter.errors import RateLimitExceeded
+
+# Local modules
+from app.utils.api import error_response
+
+api_bp = Blueprint("api", __name__, url_prefix="/api")
+
 @api_bp.errorhandler(Exception)
 def handle_error(error):
     if isinstance(error, RateLimitExceeded):

@@ -1,7 +1,6 @@
 # Flask modules
-from werkzeug.exceptions import HTTPException
-
 from flask import Blueprint
+from werkzeug.exceptions import HTTPException
 from flask_limiter.errors import RateLimitExceeded
 
 # Local modules
