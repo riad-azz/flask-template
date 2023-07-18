@@ -2,7 +2,25 @@
 
 A simple flask app starter template with login/register ready. Using Isolated app directory structure.
 
+Here is a list of the available features:
+
+- **Scalable Folder Structure**: The application employs an isolated app directory structure to ensure code maintainability and readability.
+
+- **API Ready**: The template includes a ready-to-use API structure, making it suitable for building RESTful services.
+
+- **Web UI**: The template includes a basic web user interface.
+
+- **Rate Limiting**: To protect your application from abuse, rate limiting is enforced.
+
+- **CORS**: Cross-origin resource sharing (CORS) is configured to manage the server's shared resources.
+
+- **Tests**: Unit tests are included to ensure the application's functionality and robustness.
+
+- **Docker Support**: A Dockerfile is included for building a Docker image of your application, facilitating easy deployment and scaling.
+
 ## Getting Started
+
+### Running The Application
 
 Clone the repository to your local machine:
 
@@ -22,13 +40,17 @@ The application can be run with the following command:
 python server.py
 ```
 
-**Testing**: you can write tests in `flask-template/tests`, and to run the tests simple use the command:
+### Running Tests
+
+you can write tests in `flask-template/tests`, and to run the tests simple use the command:
 
 ```bash
 python -m pytest
 ```
 
-**Docker**: To run the application in Docker follow these steps:
+### Dockerize The Application
+
+To run the application in Docker follow these steps:
 
 1.Install [Docker](https://www.docker.com/) on your machine.
 
@@ -43,22 +65,6 @@ docker build -t flask-app .
 ```bash
 docker run -p 5000:5000 flask-app
 ```
-
-## Features
-
-- **Scalable Folder Structure**: The application employs an isolated app directory structure to ensure code maintainability and readability.
-
-- **API Ready**: The template includes a ready-to-use API structure, making it suitable for building RESTful services.
-
-- **Web UI**: The template includes a basic web user interface.
-
-- **Rate Limiting**: To protect your application from abuse, rate limiting is enforced.
-
-- **CORS**: Cross-origin resource sharing (CORS) is configured to manage the server's shared resources.
-
-- **Tests**: Unit tests are included to ensure the application's functionality and robustness.
-
-- **Docker Support**: A Dockerfile is included for building a Docker image of your application, facilitating easy deployment and scaling.
 
 ## Contributing
 
