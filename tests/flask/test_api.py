@@ -26,9 +26,17 @@ def test_api_bad_request(app):
         assert response.json["message"] == "Bad Request"
 
 
-def test_api_internal_sever_error(app):
+def test_api_internal_server_error(app):
     with app.test_client() as client:
         response = client.get("/api/examples/internal-server-error")
+        assert response.status_code == 500
+        assert response.json["status"] == "error"
+        assert response.json["message"] == "Internal Server Error"
+
+
+def test_api_unknown_exception(app):
+    with app.test_client() as client:
+        response = client.get("/api/examples/unknown-exception")
         assert response.status_code == 500
         assert response.json["status"] == "error"
         assert response.json["message"] == "Internal Server Error"

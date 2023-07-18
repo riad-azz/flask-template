@@ -1,6 +1,7 @@
 # Flask Starter Template
 
-A simple flask app starter template with login/register ready. Using Isolated app directory structure.
+A simple Flask app starter template. This is my preference to bootstrap my Flask projects and not a must follow
+structure, feel free to change whatever you don't like to your liking.
 
 Here is a list of the available features:
 
@@ -24,19 +25,19 @@ Here is a list of the available features:
 
 ### Running The Application
 
-Clone the repository to your local machine:
+1.Clone the repository to your local machine:
 
 ```bash
 git clone https://github.com/riad-azz/flask-template && cd flask-template
 ```
 
-install the required dependencies:
+2.Install the required dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-The application can be run with the following command:
+3.The application can be run with the following command:
 
 ```bash
 python server.py
@@ -111,6 +112,7 @@ from app.utils.api import error_response
 
 api_bp = Blueprint("api", __name__, url_prefix="/api")
 
+
 @api_bp.errorhandler(Exception)
 def handle_error(error):
     if isinstance(error, RateLimitExceeded):
@@ -123,9 +125,10 @@ def handle_error(error):
         return error_response()
 ```
 
-If the exception is unknown the API will return a `Internal Server Error` by default from the `error_response()` function.
+If the exception is unknown the API will return a `Internal Server Error` by default from the `error_response()`
+function.
 
-### API Responses Examples
+### API Response Examples
 
 Run the server and visit the following paths to check the API responses:
 
@@ -135,6 +138,9 @@ Run the server and visit the following paths to check the API responses:
 
 - Internal Server
   Error: [localhost:5000/api/examples/internal-server-error](http://localhost:5000/api/examples/internal-server-error)
+
+- Unknown
+  Exception : [localhost:5000/api/examples/unknown-exception](http://localhost:5000/api/examples/unknown-exception)
 
 ## Contributing
 

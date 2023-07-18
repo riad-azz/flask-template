@@ -1,7 +1,5 @@
 # Flask modules
 from flask import Blueprint
-
-# Other modules
 from werkzeug.exceptions import BadRequest, InternalServerError
 
 # Local modules
@@ -25,3 +23,8 @@ def example_api_bad_request():
 @examples_bp.route("/internal-server-error", methods=["GET"])
 def example_api_internal_server_error():
     raise InternalServerError("Internal Server Error")
+
+
+@examples_bp.route("/unknown-exception", methods=["GET"])
+def example_api_unknown_error():
+    raise Exception("Unknown Exception")
