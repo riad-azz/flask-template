@@ -70,6 +70,8 @@ docker build -t my-flask-image .
 docker run -p 5000:5000 --name my-flask-container my-flask-image
 ```
 
+Open your browser and visit [http://localhost:5000](http://localhost:5000/) to see the website.
+
 ## Flask API
 
 This is how I like to set up my API in Flask. You might want to change this with `flask-restful` or whatever library
