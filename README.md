@@ -8,7 +8,7 @@ Here is a list of the available features:
 - **Scalable Folder Structure**: The application employs an isolated app directory structure to ensure code
   maintainability and readability.
 
-- **API Ready**: The template includes a ready-to-use API structure, making it suitable for building RESTful services.
+- **API Ready**: The template includes a ready-to-use API structure.
 
 - **Web UI**: The template includes a basic web user interface.
 
