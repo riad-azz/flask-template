@@ -7,7 +7,7 @@ from flask_limiter.errors import RateLimitExceeded
 from app.utils.api import error_response
 
 # Blueprint modules
-from .examples import examples_bp
+from .tests import tests_bp
 
 api_bp = Blueprint("api", __name__, url_prefix="/api")
 
@@ -24,4 +24,4 @@ def handle_error(error):
         return error_response()
 
 
-api_bp.register_blueprint(examples_bp)
+api_bp.register_blueprint(tests_bp)

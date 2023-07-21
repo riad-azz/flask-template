@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_limiter import ExemptionScope
 
 from app.routes import api_bp, pages_bp
 from app.extensions import cors, limiter
@@ -20,6 +21,12 @@ def create_app(debug: bool = False):
     # Initialize extensions
     cors.init_app(app)
     limiter.init_app(app)
+
+    # Exempt pages from the ratelimit
+    limiter.exempt(pages_bp,
+                   flags=ExemptionScope.DEFAULT |
+                         ExemptionScope.APPLICATION |
+                         ExemptionScope.DESCENDENTS)
 
     # Register blueprints or routes
     app.register_blueprint(pages_bp)

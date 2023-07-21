@@ -82,16 +82,31 @@ You can check `app/routes/api/examples.py` to get an idea of how the API should 
 
 ### Models
 
-All the models must be dataclasses to be serializable by the `APIResponse`, for example:
+All the models must be JSON serializable for example the provided ExampleClass inherits from `SerializableDataclass`
+which has a `to_json()` method that allows it to become serializable:
+
+Here is the `ExampleModel`:
 
 ```python
 from dataclasses import dataclass
+from app.utils.models import SerializableDataclass
 
 
 @dataclass
-class ExampleModel:
+class ExampleModel(SerializableDataclass):
     title: str
     content: str
+```
+
+Here is the `SerializableDataclass`:
+
+```python
+from dataclasses_serialization.json import JSONSerializer
+
+
+class SerializableDataclass:
+    def to_dict(self):
+        return JSONSerializer.serialize(self)
 ```
 
 ### Error handling
@@ -132,15 +147,17 @@ function.
 
 Run the server and visit the following paths to check the API responses:
 
-- Success Request: [localhost:5000/api/examples/success](http://localhost:5000/api/examples/success)
+- Success Request: [localhost:5000/api/tests/success](http://localhost:5000/api/tests/success)
 
-- Bad Request: [localhost:5000/api/examples/bad-request](http://localhost:5000/api/examples/bad-request)
+- Bad Request: [localhost:5000/api/tests/bad-request](http://localhost:5000/api/tests/bad-request)
+
+- Forbidden: [localhost:5000/api/tests/forbidden](http://localhost:5000/api/tests/forbidden)
 
 - Internal Server
-  Error: [localhost:5000/api/examples/internal-server-error](http://localhost:5000/api/examples/internal-server-error)
+  Error: [localhost:5000/api/tests/internal-server-error](http://localhost:5000/api/tests/internal-server-error)
 
 - Unknown
-  Exception : [localhost:5000/api/examples/unknown-exception](http://localhost:5000/api/examples/unknown-exception)
+  Exception: [localhost:5000/api/tests/unknown-exception](http://localhost:5000/api/tests/unknown-exception)
 
 ## Contributing
 

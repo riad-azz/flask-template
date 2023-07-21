@@ -1,7 +1,8 @@
 from dataclasses import dataclass
+from app.utils.models import SerializableDataclass
 
 
 @dataclass
-class ExampleModel:
+class ExampleModel(SerializableDataclass):
     title: str
     content: str

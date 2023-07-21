@@ -25,7 +25,7 @@ limiter = Limiter(
     ],
     storage_uri=RATELIMIT_STORAGE_URL,
     in_memory_fallback_enabled=True,
-    strategy="moving-window",  # or "fixed-window"
+    strategy="fixed-window",  # or "moving-window"
     headers_enabled=True,
     enabled=RATELIMIT_ENABLED,
     # default_limits_exempt_when=default_exempt_when,
