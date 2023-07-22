@@ -16,6 +16,8 @@ Here is a list of the available features:
 
 - **CORS**: Cross-origin resource sharing (CORS) is configured to manage the server's shared resources.
 
+- **CACHING**: The template includes caching to optimize performance and reduce server load. Caching stores frequently requested data temporarily, leading to faster API responses. It enhances user experience and helps handle high traffic efficiently.
+
 - **Tests**: Unit tests are included to ensure the application's functionality and robustness.
 
 - **Docker Support**: A Dockerfile is included for building a Docker image of your application, facilitating easy
