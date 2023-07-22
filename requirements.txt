@@ -1,6 +1,7 @@
 Flask
 Flask-Cors
 Flask-Limiter
+Flask-Caching
 python-dotenv
 redis
 gunicorn

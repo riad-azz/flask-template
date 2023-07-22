@@ -15,6 +15,12 @@ def example_api_success():
     return success_response(data, 200)
 
 
+@tests_bp.route("/cached", methods=["GET"])
+def example_api_cached():
+    data = ExampleModel(title="riad-azz", content="Cached API response")
+    return success_response(data, 200)
+
+
 @tests_bp.route("/bad-request", methods=["GET"])
 def example_api_bad_request():
     raise BadRequest("Bad Request")

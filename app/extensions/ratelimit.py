@@ -1,15 +1,17 @@
+# Flask modules
 from flask import request
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 
+# Other modules
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
 
 RATELIMIT_ENABLED = os.environ.get("RATELIMIT_ENABLED", "False") == "True"
-RATELIMIT_LIMIT = os.environ.get("RATELIMIT_LIMIT", "5 per minute")
-RATELIMIT_STORAGE_URL = os.environ.get("RATELIMIT_REDIS_URL", "memory://")
+RATELIMIT_LIMIT = os.environ.get("RATELIMIT_LIMIT", "5/minute")
+RATELIMIT_STORAGE_URL = os.environ.get("RATELIMIT_STORAGE_URL", "memory://")
 
 
 def default_exempt_when():
