@@ -28,10 +28,7 @@ def handle_error(error):
 @api_bp.before_request
 def before_request():
     # Check if user is rate limited
-    current_limit = limiter.current_limit
-    if current_limit:
-        if current_limit.remaining <= 0:
-            return
+    limiter.check()
 
     # Attempt to fetch cached response
     cache_key = make_cache_key(request)
