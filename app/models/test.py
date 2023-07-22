@@ -3,6 +3,6 @@ from app.utils.models import SerializableDataclass
 
 
 @dataclass
-class ExampleModel(SerializableDataclass):
+class TestModel(SerializableDataclass):
     title: str
     content: str

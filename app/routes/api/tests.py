@@ -3,7 +3,7 @@ from flask import Blueprint
 from werkzeug.exceptions import BadRequest, InternalServerError, Forbidden
 
 # Local modules
-from app.models.example import ExampleModel
+from app.models.test import TestModel
 from app.utils.api import success_response
 
 tests_bp = Blueprint("tests", __name__, url_prefix="/tests")
@@ -11,13 +11,13 @@ tests_bp = Blueprint("tests", __name__, url_prefix="/tests")
 
 @tests_bp.route("/success", methods=["GET"])
 def example_api_success():
-    data = ExampleModel(title="riad-azz", content="Successful API response")
+    data = TestModel(title="riad-azz", content="Successful API response")
     return success_response(data, 200)
 
 
 @tests_bp.route("/cached", methods=["GET"])
 def example_api_cached():
-    data = ExampleModel(title="riad-azz", content="Cached API response")
+    data = TestModel(title="riad-azz", content="Cached API response")
     return success_response(data, 200)
 
 

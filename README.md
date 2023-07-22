@@ -87,7 +87,7 @@ You can check `app/routes/api/examples.py` to get an idea of how the API should 
 All the models must be JSON serializable for example the provided ExampleClass inherits from `SerializableDataclass`
 which has a `to_json()` method that allows it to become serializable:
 
-Here is the `ExampleModel`:
+Here is the `TestModel`:
 
 ```python
 from dataclasses import dataclass
@@ -95,7 +95,7 @@ from app.utils.models import SerializableDataclass
 
 
 @dataclass
-class ExampleModel(SerializableDataclass):
+class TestModel(SerializableDataclass):
     title: str
     content: str
 ```
@@ -150,6 +150,8 @@ function.
 Run the server and visit the following paths to check the API responses:
 
 - Success Request: [localhost:5000/api/tests/success](http://localhost:5000/api/tests/success)
+
+- Cached Request: [localhost:5000/api/tests/cached](http://localhost:5000/api/tests/cached)
 
 - Bad Request: [localhost:5000/api/tests/bad-request](http://localhost:5000/api/tests/bad-request)
 
