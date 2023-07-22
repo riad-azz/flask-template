@@ -1,5 +1,5 @@
 # Flask modules
-from flask import Blueprint
+from flask import Blueprint, request
 from werkzeug.exceptions import HTTPException
 from flask_limiter.errors import RateLimitExceeded
 
@@ -34,7 +34,7 @@ def before_request():
             return
 
     # Attempt to fetch cached response
-    cache_key = make_cache_key()
+    cache_key = make_cache_key(request)
     try:
         cached_response = get_cached_response(cache_key)
         if cached_response is not None:
@@ -48,7 +48,7 @@ def after_request(response):
     if response.status_code == 200:
         # Cache the response if it is successful (status code 200)
         try:
-            cache_key = make_cache_key()
+            cache_key = make_cache_key(request)
             cache.set(cache_key, response, timeout=300)
         except Exception as e:
             print(f"Error when caching response:", e)

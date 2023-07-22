@@ -3,7 +3,7 @@ import pytest
 
 # Local modules
 from app import create_app
-from app.utils.api import get_cached_response
+from app.utils.api import get_cached_response, make_cache_key
 
 
 @pytest.fixture
@@ -22,5 +22,8 @@ def test_api_cache(app):
         assert response.json["data"]["title"] == "riad-azz"
         assert response.json["data"]["content"] == "Cached API response"
 
-    is_cached = get_cached_response(response.request.url)
+    request = response.request
+    cache_key = make_cache_key(request)
+    is_cached = get_cached_response(cache_key)
+
     assert bool(is_cached) is True
