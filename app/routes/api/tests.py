@@ -25,7 +25,7 @@ def test_api_success():
 
 
 @tests_bp.route("/ratelimit", methods=["GET"])
-@limiter.limit("1 per minute", override_defaults=True)
+@limiter.limit("2 per minute", override_defaults=True)
 def test_api_ratelimit():
     data = TestModel(title="riad-azz", content="Rate limit API response")
     return success_response(data, 200)

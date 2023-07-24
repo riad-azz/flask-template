@@ -5,7 +5,8 @@ from flask_limiter.errors import RateLimitExceeded
 
 # Local modules
 from app.extensions import cache, limiter
-from app.utils.api import error_response, get_cached_response, make_cache_key
+from app.utils.api import error_response
+from app.utils.redis import get_cached_response, make_cache_key
 
 # Blueprint modules
 from .tests import tests_bp

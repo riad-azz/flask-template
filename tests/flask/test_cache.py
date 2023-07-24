@@ -3,7 +3,7 @@ import pytest
 
 # Local modules
 from app import create_app
-from app.utils.api import get_cached_response, make_cache_key
+from app.utils.redis import get_cached_response, make_cache_key
 
 
 @pytest.fixture
