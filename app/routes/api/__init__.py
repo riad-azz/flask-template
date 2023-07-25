@@ -4,9 +4,9 @@ from werkzeug.exceptions import HTTPException
 from flask_limiter.errors import RateLimitExceeded
 
 # Local modules
-from app.extensions import cache, limiter
+from app.extensions import limiter
 from app.utils.api import error_response
-from app.utils.redis import get_cached_response, make_cache_key
+from app.utils.cache import get_cached_response, set_cached_response
 
 # Blueprint modules
 from .tests import tests_bp
@@ -32,24 +32,16 @@ def before_request():
     limiter.check()
 
     # Attempt to fetch cached response
-    cache_key = make_cache_key(request)
-    try:
-        cached_response = get_cached_response(cache_key)
-        if cached_response is not None:
-            return cached_response
-    except Exception as e:
-        print(f"Error when fetching cached response:", e)
+    cached_response = get_cached_response(request)
+    if cached_response is not None:
+        return cached_response
 
 
 @api_bp.after_request
 def after_request(response):
     if response.status_code == 200:
         # Cache the response if it is successful (status code 200)
-        try:
-            cache_key = make_cache_key(request)
-            cache.set(cache_key, response, timeout=300)
-        except Exception as e:
-            print(f"Error when caching response:", e)
+        set_cached_response(request, response)
     return response
 
 

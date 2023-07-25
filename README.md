@@ -3,6 +3,8 @@
 A simple Flask app starter template. This is my preference to bootstrap my Flask projects and not a must follow
 structure, feel free to change whatever you dislike to fit what you are comfortable with.
 
+## Features
+
 Here is a list of the available features:
 
 - **Scalable Folder Structure**: The application employs an isolated app directory structure to ensure code
@@ -82,9 +84,9 @@ that suits you.
 
 You can check `app/routes/api/examples.py` to get an idea of how the API should work.
 
-### Models
+### API Models
 
-All the models must be JSON serializable for example the provided ExampleClass inherits from `SerializableDataclass`
+All the models served with the API must be JSON serializable for example the provided `TestModel` inherits from `SerializableDataclass`
 which has a `to_json()` method that allows it to become serializable:
 
 Here is the `TestModel`:

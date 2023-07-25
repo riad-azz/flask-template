@@ -13,6 +13,9 @@ def create_app(debug: bool = False):
                 static_folder="../static",
                 static_url_path="/")
 
+    # Set current_app context
+    app.app_context().push()
+
     if debug:
         app.config.from_object(DevConfig)
     else:
@@ -32,8 +35,5 @@ def create_app(debug: bool = False):
     # Register blueprints or routes
     app.register_blueprint(pages_bp)
     app.register_blueprint(api_bp)
-
-    # Set current_app context
-    app.app_context().push()
 
     return app

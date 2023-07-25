@@ -3,7 +3,7 @@ import pytest
 
 # Local modules
 from app import create_app
-from app.utils.redis import get_cached_response, make_cache_key
+from app.utils.cache import get_cached_response
 
 
 @pytest.fixture
@@ -23,7 +23,6 @@ def test_api_cache(app):
         assert response.json["data"]["content"] == "Cached API response"
 
     request = response.request
-    cache_key = make_cache_key(request)
-    is_cached = get_cached_response(cache_key)
+    is_cached = get_cached_response(request)
 
     assert bool(is_cached) is True
