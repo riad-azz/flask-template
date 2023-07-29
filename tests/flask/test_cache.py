@@ -1,4 +1,5 @@
 # Other modules
+import os
 import pytest
 
 # Local modules

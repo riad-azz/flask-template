@@ -1,4 +1,7 @@
+# Other modules
 import pytest
+
+# Local modules
 from app import create_app
 
 

@@ -1,4 +1,7 @@
+# Other modules
 import pytest
+
+# Local modules
 from app import create_app
 from app.extensions import limiter
 from flask_limiter.util import get_remote_address

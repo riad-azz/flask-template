@@ -16,6 +16,8 @@ RATELIMIT_STORAGE_URL = os.environ.get("RATELIMIT_STORAGE_URL", "memory://")
 
 def default_exempt_when():
     # You can whitelist IPs from the rate limiter here
+    # or put whatever cases you would like the limiter
+    # to not work or be ignored
     EXEMPTED_HOSTS = ["127.0.0.1", "localhost"]
     return request.remote_addr in EXEMPTED_HOSTS
 

@@ -1,8 +1,16 @@
 # Flask modules
 from flask.wrappers import Request, Response
 
+# Other modules
+import os
+from dotenv import load_dotenv
+
 # Local modules
 from app.extensions import cache
+
+load_dotenv()
+
+CACHE_ENABLED = os.environ.get("CACHE_ENABLED", "False") == "True"
 
 
 def make_api_cache_key(request: Request):
@@ -12,6 +20,8 @@ def make_api_cache_key(request: Request):
 
 
 def get_cached_response(request: Request):
+    if not CACHE_ENABLED:
+        return
     cache_key = make_api_cache_key(request)
     try:
         cached_response = cache.get(cache_key)
@@ -24,6 +34,8 @@ def get_cached_response(request: Request):
 
 
 def set_cached_response(request: Request, response: Response):
+    if not CACHE_ENABLED:
+        return
     try:
         cache_key = make_api_cache_key(request)
         if not cache.get(cache_key):

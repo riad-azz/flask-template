@@ -1,6 +1,8 @@
+# Flask modules
 from flask import Flask
 from flask_limiter import ExemptionScope
 
+# Local modules
 from app.routes import api_bp, pages_bp
 from app.extensions import cors, cache, limiter
 from app.config import DevConfig, ProdConfig
