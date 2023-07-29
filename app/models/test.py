@@ -1,8 +1,6 @@
-from dataclasses import dataclass
-from app.utils.models import SerializableDataclass
+from pydantic import BaseModel
 
 
-@dataclass
-class TestModel(SerializableDataclass):
+class TestModel(BaseModel):
     title: str
     content: str

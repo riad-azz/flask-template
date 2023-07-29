@@ -2,8 +2,8 @@ Flask
 Flask-Cors
 Flask-Limiter
 Flask-Caching
+pydantic
 python-dotenv
 redis
 gunicorn
 pytest
-dataclasses-serialization

@@ -18,7 +18,9 @@ Here is a list of the available features:
 
 - **CORS**: Cross-origin resource sharing (CORS) is configured to manage the server's shared resources.
 
-- **CACHING**: The template includes caching to optimize performance and reduce server load. Caching stores frequently requested data temporarily, leading to faster API responses. It enhances user experience and helps handle high traffic efficiently.
+- **CACHING**: The template includes caching to optimize performance and reduce server load. Caching stores frequently
+  requested data temporarily, leading to faster API responses. It enhances user experience and helps handle high traffic
+  efficiently.
 
 - **Tests**: Unit tests are included to ensure the application's functionality and robustness.
 
@@ -82,35 +84,20 @@ Open your browser and visit [http://localhost:5000](http://localhost:5000/) to s
 This is how I like to set up my API in Flask. You might want to change this with `flask-restful` or whatever library
 that suits you.
 
-You can check `app/routes/api/examples.py` to get an idea of how the API should work.
+You can check `app/routes/api/tests.py` to get an idea of how the API should work.
 
 ### API Models
 
-All the models served with the API must be JSON serializable for example the provided `TestModel` inherits from `SerializableDataclass`
-which has a `to_json()` method that allows it to become serializable:
-
-Here is the `TestModel`:
+All the models served with the API must inherit from `BaseModel` that is provided by the
+library [pydantic](https://docs.pydantic.dev/latest/) which allows it to become serializable:
 
 ```python
-from dataclasses import dataclass
-from app.utils.models import SerializableDataclass
+from pydantic import BaseModel
 
 
-@dataclass
-class TestModel(SerializableDataclass):
+class TestModel(BaseModel):
     title: str
     content: str
-```
-
-Here is the `SerializableDataclass`:
-
-```python
-from dataclasses_serialization.json import JSONSerializer
-
-
-class SerializableDataclass:
-    def to_dict(self):
-        return JSONSerializer.serialize(self)
 ```
 
 ### Error handling
@@ -153,7 +140,7 @@ Run the server and visit the following paths to check the API responses:
 
 - Success Request: [localhost:5000/api/tests/success](http://localhost:5000/api/tests/success)
 
-- Cached Request: [localhost:5000/api/tests/cached](http://localhost:5000/api/tests/cached)
+- Rate limited Request _(refresh to get rate limited)_: [localhost:5000/api/tests/cached](http://localhost:5000/api/tests/ratelimit)
 
 - Bad Request: [localhost:5000/api/tests/bad-request](http://localhost:5000/api/tests/bad-request)
 

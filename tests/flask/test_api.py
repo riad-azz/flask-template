@@ -18,6 +18,22 @@ def test_api_success(app):
         assert response.json["data"]["content"] == "Successful API response"
 
 
+def test_api_ratelimit(app):
+    with app.test_client() as client:
+        success_response = client.get("/api/tests/ratelimit")
+        limited_response = client.get("/api/tests/ratelimit")
+
+    assert success_response.status_code == 200
+    assert success_response.json["status"] == "success"
+    assert success_response.json["data"]["title"] == "riad-azz"
+    assert success_response.json["data"]["content"] == "Rate limit API response"
+
+    assert limited_response.status_code == 429
+    assert limited_response.json["status"] == "error"
+    assert limited_response.json["message"] == "Too many requests: 2 per 1 minute"
+    assert limited_response.headers['Retry-After'] is not None
+
+
 def test_api_bad_request(app):
     with app.test_client() as client:
         response = client.get("/api/tests/bad-request")
