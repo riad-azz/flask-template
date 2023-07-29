@@ -140,7 +140,7 @@ Run the server and visit the following paths to check the API responses:
 
 - Success Request: [localhost:5000/api/tests/success](http://localhost:5000/api/tests/success)
 
-- Rate limited Request _(refresh to get rate limited)_: [localhost:5000/api/tests/cached](http://localhost:5000/api/tests/ratelimit)
+- Rate limited Request _(refresh to get rate limited)_: [localhost:5000/api/tests/ratelimit](http://localhost:5000/api/tests/ratelimit)
 
 - Bad Request: [localhost:5000/api/tests/bad-request](http://localhost:5000/api/tests/bad-request)
 
