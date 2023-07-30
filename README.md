@@ -22,6 +22,9 @@ Here is a list of the available features:
   requested data temporarily, leading to faster API responses. It enhances user experience and helps handle high traffic
   efficiently.
 
+- **Logging**: The application includes logging capabilities to record relevant events, errors, and messages. Logging
+  helps in monitoring and troubleshooting the application during development and production.
+
 - **Tests**: Unit tests are included to ensure the application's functionality and robustness.
 
 - **Docker Support**: A Dockerfile is included for building a Docker image of your application, facilitating easy
@@ -140,7 +143,8 @@ Run the server and visit the following paths to check the API responses:
 
 - Success Request: [localhost:5000/api/tests/success](http://localhost:5000/api/tests/success)
 
-- Rate limited Request _(refresh to get rate limited)_: [localhost:5000/api/tests/ratelimit](http://localhost:5000/api/tests/ratelimit)
+- Rate limited Request _(refresh to get rate
+  limited)_: [localhost:5000/api/tests/ratelimit](http://localhost:5000/api/tests/ratelimit)
 
 - Bad Request: [localhost:5000/api/tests/bad-request](http://localhost:5000/api/tests/bad-request)
 

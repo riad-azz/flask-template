@@ -4,7 +4,7 @@ from flask_limiter import ExemptionScope
 
 # Local modules
 from app.routes import api_bp, pages_bp
-from app.extensions import cors, cache, limiter
+from app.extensions import cors, cache, limiter, configure_logger
 from app.config import DevConfig, ProdConfig
 
 
@@ -27,6 +27,7 @@ def create_app(debug: bool = False):
     cors.init_app(app)
     cache.init_app(app)
     limiter.init_app(app)
+    configure_logger()
 
     # Exempt pages from the ratelimit
     limiter.exempt(pages_bp,

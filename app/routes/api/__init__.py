@@ -3,6 +3,9 @@ from flask import Blueprint, request
 from werkzeug.exceptions import HTTPException
 from flask_limiter.errors import RateLimitExceeded
 
+# Other modules
+import logging
+
 # Local modules
 from app.extensions import limiter
 from app.utils.api import error_response
@@ -22,7 +25,7 @@ def handle_error(error):
     elif isinstance(error, HTTPException):
         return error_response(error.description, error.code)
     else:
-        print(error)
+        logging.error(error)
         return error_response()
 
 
