@@ -23,14 +23,14 @@ def configure_logger():
             'formatter': 'default',
             'filename': LOG_FILE_PATH,
             'backupCount': 2,
-        }, 'console': {
+        }, 'wsgi': {
             'class': 'logging.StreamHandler',
-            'formatter': 'default',
-            'level': 'INFO',
-            'stream': 'ext://sys.stdout'
-        }},
+            'stream': 'ext://flask.logging.wsgi_errors_stream',
+            'formatter': 'default'
+        }
+        },
         'root': {
             'level': 'DEBUG',
-            'handlers': ['file', 'console']
+            'handlers': ['file', 'wsgi']
         }
     })

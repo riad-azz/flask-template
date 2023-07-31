@@ -9,3 +9,4 @@
 **/.next
 **/.idea
 **/.env
+**/logs
