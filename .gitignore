@@ -1,5 +1,6 @@
 .idea
-.env
+.env*
+!.env.example
 **/__pycache___
 .pytest_cache
 **/.vscode

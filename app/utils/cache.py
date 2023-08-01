@@ -1,18 +1,9 @@
 # Flask modules
+from flask import current_app
 from flask.wrappers import Request, Response
-
-# Other modules
-import os
-from dotenv import load_dotenv
 
 # Local modules
 from app.extensions import cache
-
-load_dotenv()
-
-CACHE_ENABLED = os.environ.get("CACHE_ENABLED", "False") == "True"
-
-EXEMPTED_ROUTES = ["/api/example/route/", ]
 
 
 def make_api_cache_key(request: Request):
@@ -22,13 +13,13 @@ def make_api_cache_key(request: Request):
 
 
 def is_exempted_route(route_path: str):
-    if any(route_path.startswith(x) for x in EXEMPTED_ROUTES):
+    if any(route_path.startswith(x) for x in current_app.config["CACHE_EXEMPTED_ROUTES"]):
         return True
     return False
 
 
 def get_cached_response(request: Request):
-    if not CACHE_ENABLED or is_exempted_route(request.path):
+    if not current_app.config['CACHE_ENABLED'] or is_exempted_route(request.path):
         return None
 
     cache_key = make_api_cache_key(request)
@@ -43,7 +34,7 @@ def get_cached_response(request: Request):
 
 
 def set_cached_response(request: Request, response: Response):
-    if not CACHE_ENABLED or is_exempted_route(request.path):
+    if not current_app.config['CACHE_ENABLED'] or is_exempted_route(request.path):
         return None
 
     try:
@@ -54,6 +45,3 @@ def set_cached_response(request: Request, response: Response):
         print(f"Error when caching response:", e)
 
     return None
-
-
-

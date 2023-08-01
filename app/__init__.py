@@ -1,10 +1,8 @@
 # Flask modules
 from flask import Flask
-from flask_limiter import ExemptionScope
 
 # Local modules
 from app.routes import api_bp, pages_bp
-from app.config import DevConfig, ProdConfig
 from app.utils.logger import configure_logger
 from app.extensions import cors, cache, limiter
 
@@ -20,8 +18,10 @@ def create_app(debug: bool = False):
     app.app_context().push()
 
     if debug:
+        from app.config.dev import DevConfig
         app.config.from_object(DevConfig)
     else:
+        from app.config.prod import ProdConfig
         app.config.from_object(ProdConfig)
 
     # Set up logger
@@ -31,12 +31,6 @@ def create_app(debug: bool = False):
     cors.init_app(app)
     cache.init_app(app)
     limiter.init_app(app)
-
-    # Exempt pages from the ratelimit
-    limiter.exempt(pages_bp,
-                   flags=ExemptionScope.DEFAULT |
-                         ExemptionScope.APPLICATION |
-                         ExemptionScope.DESCENDENTS)
 
     # Register blueprints or routes
     app.register_blueprint(pages_bp)

@@ -1,4 +1,5 @@
 # Other modules
+import os
 import pytest
 
 # Local modules
@@ -7,7 +8,8 @@ from app import create_app
 
 @pytest.fixture
 def app():
-    app = create_app()
+    DEBUG = os.environ.get("DEBUG", "False") == "True"
+    app = create_app(debug=DEBUG)
 
     return app
 

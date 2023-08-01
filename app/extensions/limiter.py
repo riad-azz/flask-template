@@ -1,17 +1,7 @@
 # Flask modules
-from flask import request
-from flask_limiter import Limiter
+from flask import request, make_response
+from flask_limiter import Limiter, RequestLimit
 from flask_limiter.util import get_remote_address
-
-# Other modules
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
-RATELIMIT_ENABLED = os.environ.get("RATELIMIT_ENABLED", "False") == "True"
-RATELIMIT_LIMIT = os.environ.get("RATELIMIT_LIMIT", "5/minute")
-RATELIMIT_STORAGE_URL = os.environ.get("RATELIMIT_STORAGE_URL", "memory://")
 
 
 def default_exempt_when():
@@ -22,15 +12,18 @@ def default_exempt_when():
     return request.remote_addr in EXEMPTED_HOSTS
 
 
+def default_error_responder(request_limit: RequestLimit):
+    response = """
+    <title>429 Too Many Requests</title>
+    <h1>Too Many Requests</h1>
+    <p>We kindly request your cooperation in refraining from engaging in an unusually high volume of requests.</p>
+    """
+    return make_response(response, 429)
+
+
 limiter = Limiter(
     key_func=get_remote_address,
-    default_limits=[
-        RATELIMIT_LIMIT,
-    ],
-    storage_uri=RATELIMIT_STORAGE_URL,
-    in_memory_fallback_enabled=True,
-    strategy="fixed-window",  # or "moving-window"
-    headers_enabled=True,
-    enabled=RATELIMIT_ENABLED,
+    default_limits=['30/minute'],
+    on_breach=default_error_responder,
     # default_limits_exempt_when=default_exempt_when,
 )
