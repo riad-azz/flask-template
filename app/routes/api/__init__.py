@@ -15,6 +15,7 @@ from app.utils.cache import get_cached_response, set_cached_response
 from .tests import tests_bp
 
 api_bp = Blueprint("api", __name__, url_prefix="/api")
+limiter.limit("5/minute")(api_bp)
 
 
 @api_bp.errorhandler(Exception)
@@ -31,9 +32,6 @@ def handle_error(error):
 
 @api_bp.before_request
 def before_request():
-    # Check if user is rate limited
-    limiter.check()
-
     # Attempt to fetch cached response
     cached_response = get_cached_response(request)
     if cached_response is not None:
