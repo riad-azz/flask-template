@@ -44,9 +44,8 @@ def create_app(debug: bool = False):
     app.register_blueprint(pages_bp)
     app.register_blueprint(api_bp)
 
-    # Rate limit checker
-    @app.before_request
-    def limiter_checker():
-        limiter.check()
+    # Global Ratelimit Checker
+    # this is used because auto_check is set to 'False'
+    app.before_request(lambda: limiter.check())
 
     return app
