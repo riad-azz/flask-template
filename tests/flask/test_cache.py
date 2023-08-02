@@ -1,5 +1,4 @@
 # Other modules
-import os
 import pytest
 
 # Local modules
@@ -9,8 +8,7 @@ from app.utils.cache import get_cached_response
 
 @pytest.fixture
 def app():
-    DEBUG = os.environ.get("DEBUG", "False") == "True"
-    app = create_app(debug=DEBUG)
+    app = create_app()
 
     return app
 

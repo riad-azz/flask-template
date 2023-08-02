@@ -1,5 +1,4 @@
 # Other modules
-import os
 import pytest
 
 # Local modules
@@ -8,8 +7,7 @@ from app import create_app
 
 @pytest.fixture
 def app():
-    DEBUG = os.environ.get("DEBUG", "False") == "True"
-    app = create_app(debug=DEBUG)
+    app = create_app()
     return app
 
 
@@ -34,7 +32,7 @@ def test_api_ratelimit(app):
 
     assert limited_response.status_code == 429
     assert limited_response.json["status"] == "error"
-    assert limited_response.json["message"] == "Too many requests: 2 per 1 minute"
+    assert limited_response.json["message"] == "Too many requests: 1 per 1 minute"
     assert limited_response.headers['Retry-After'] is not None
 
 

@@ -1,15 +1,7 @@
 # Flask modules
-from flask import request, make_response
+from flask import make_response
 from flask_limiter import Limiter, RequestLimit
 from flask_limiter.util import get_remote_address
-
-
-def default_exempt_when():
-    # You can whitelist IPs from the rate limiter here
-    # or put whatever cases you would like the limiter
-    # to not work or be ignored
-    EXEMPTED_HOSTS = ["127.0.0.1", "localhost"]
-    return request.remote_addr in EXEMPTED_HOSTS
 
 
 def default_error_responder(request_limit: RequestLimit):
@@ -23,7 +15,7 @@ def default_error_responder(request_limit: RequestLimit):
 
 limiter = Limiter(
     key_func=get_remote_address,
-    default_limits=['30/minute'],
+    default_limits=["30/minute"],
+    auto_check=False,
     on_breach=default_error_responder,
-    # default_limits_exempt_when=default_exempt_when,
 )

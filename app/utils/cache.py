@@ -2,6 +2,9 @@
 from flask import current_app
 from flask.wrappers import Request, Response
 
+# Other modules
+import logging
+
 # Local modules
 from app.extensions import cache
 
@@ -18,8 +21,18 @@ def is_exempted_route(route_path: str):
     return False
 
 
+def is_cachable(request: Request):
+    if not current_app.config['CACHE_ENABLED']:
+        return False
+
+    if is_exempted_route(request.path):
+        return False
+
+    return True
+
+
 def get_cached_response(request: Request):
-    if not current_app.config['CACHE_ENABLED'] or is_exempted_route(request.path):
+    if not is_cachable(request):
         return None
 
     cache_key = make_api_cache_key(request)
@@ -28,13 +41,13 @@ def get_cached_response(request: Request):
         if cached_response is not None:
             return cached_response
     except Exception as e:
-        print(f"Error when fetching cached response:", e)
+        logging.error(f"Error when fetching cached response: {e}")
 
     return None
 
 
 def set_cached_response(request: Request, response: Response):
-    if not current_app.config['CACHE_ENABLED'] or is_exempted_route(request.path):
+    if not is_cachable(request):
         return None
 
     try:
@@ -42,6 +55,6 @@ def set_cached_response(request: Request, response: Response):
         if not cache.get(cache_key):
             cache.set(cache_key, response)
     except Exception as e:
-        print(f"Error when caching response:", e)
+        logging.error(f"Error when caching response: {e}")
 
     return None
