@@ -2,8 +2,9 @@ Flask
 Flask-Cors
 Flask-Limiter
 Flask-Caching
-pydantic
-python-dotenv
+Flask-SQLAlchemy
 redis
-gunicorn
 pytest
+pydantic
+gunicorn
+python-dotenv

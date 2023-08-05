@@ -11,3 +11,5 @@
 **/.idea
 **/.env
 **/logs
+**/database
+**/*.db

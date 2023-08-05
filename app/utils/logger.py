@@ -9,7 +9,7 @@ LOG_FOLDER_DIR = BASE_DIR / "logs"
 LOG_FILE_PATH = os.path.join(LOG_FOLDER_DIR, LOG_FILENAME)
 
 
-def configure_logger():
+def setup_flask_logger():
     if not os.path.isdir(LOG_FOLDER_DIR):
         os.makedirs(LOG_FOLDER_DIR)
 

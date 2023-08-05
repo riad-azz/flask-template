@@ -6,8 +6,8 @@ import os
 
 # Local modules
 from app.routes import api_bp, pages_bp
-from app.utils.logger import configure_logger
-from app.extensions import cors, cache, limiter
+from app.utils.logger import setup_flask_logger
+from app.extensions import db, cors, cache, limiter
 
 
 def create_app(debug: bool = False):
@@ -32,17 +32,22 @@ def create_app(debug: bool = False):
         from app.config.prod import ProdConfig
         app.config.from_object(ProdConfig)
 
-    # Set up logger
-    configure_logger()
+    # Uncomment to enable logger
+    # setup_flask_logger()
 
     # Initialize extensions
+    db.init_app(app)
     cors.init_app(app)
     cache.init_app(app)
     limiter.init_app(app)
 
+    # Create database tables
+    from app.utils.db import create_tables
+    create_tables(app)
+
     # Register blueprints or routes
-    app.register_blueprint(pages_bp)
     app.register_blueprint(api_bp)
+    app.register_blueprint(pages_bp)
 
     # Global Ratelimit Checker
     # this is used because auto_check is set to 'False'

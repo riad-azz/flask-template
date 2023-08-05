@@ -1,9 +1,9 @@
 # Flask modules
 from flask import Blueprint, render_template
 
-home_bp = Blueprint("home", __name__, url_prefix="/")
+core_bp = Blueprint("core", __name__, url_prefix="/")
 
 
-@home_bp.route("/")
-def home():
+@core_bp.route("/")
+def home_route():
     return render_template("pages/home.html")

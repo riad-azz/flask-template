@@ -89,10 +89,11 @@ that suits you.
 
 You can check `app/routes/api/tests.py` to get an idea of how the API should work.
 
-### API Models
+### API Schemas
 
-All the models served with the API must inherit from `BaseModel` that is provided by the
-library [pydantic](https://docs.pydantic.dev/latest/) which allows it to become serializable:
+All the schemas served with the API that are passed to the `success_response` must be either a `string` or a `dict`. In
+this example we use `BaseModel` from [pydantic](https://docs.pydantic.dev/latest/) which allows us to turn the model
+into a dict using the `model_dump` function:
 
 ```python
 from pydantic import BaseModel
@@ -101,6 +102,24 @@ from pydantic import BaseModel
 class TestModel(BaseModel):
     title: str
     content: str
+```
+
+```python
+# Flask modules
+from flask import Blueprint
+
+# Local modules
+from app.schemas.test import TestModel
+from app.utils.api import success_response
+
+tests_bp = Blueprint("tests", __name__, url_prefix="/tests")
+
+
+@tests_bp.route("/success", methods=['GET'])
+def test_api_success():
+    data = TestModel(title="riad-azz", content="Successful API response")
+    data_dict = data.model_dump()
+    return success_response(data_dict, 200)
 ```
 
 ### Error handling
@@ -116,6 +135,9 @@ from flask import Blueprint
 from werkzeug.exceptions import HTTPException
 from flask_limiter.errors import RateLimitExceeded
 
+# Other modules
+import logging
+
 # Local modules
 from app.utils.api import error_response
 
@@ -130,11 +152,11 @@ def handle_error(error):
     elif isinstance(error, HTTPException):
         return error_response(error.description, error.code)
     else:
-        print(error)
+        logging.error(error)
         return error_response()
 ```
 
-If the exception is unknown the API will return a `Internal Server Error` by default from the `error_response()`
+If the exception is unknown the API will return a `Internal Server Error` by default from the `error_response`
 function.
 
 ### API Response Examples

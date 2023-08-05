@@ -13,6 +13,7 @@ from app.utils.api import error_response
 from app.utils.cache import get_cached_response, set_cached_response
 
 # Blueprint modules
+from .auth import auth_bp
 from .tests import tests_bp
 
 api_bp = Blueprint("api", __name__, url_prefix="/api")
@@ -47,4 +48,5 @@ def after_request(response):
     return response
 
 
+api_bp.register_blueprint(auth_bp)
 api_bp.register_blueprint(tests_bp)

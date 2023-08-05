@@ -1,5 +1,4 @@
 import json
-from pydantic import BaseModel
 
 
 class SerializableClass:
@@ -12,22 +11,32 @@ class SerializableClass:
     def to_dict(self):
         return self.__dict__
 
+    @staticmethod
+    def is_json_serializable(obj):
+        try:
+            json.dumps(obj)
+            return True
+        except:
+            return False
+
 
 class APIResponse(SerializableClass):
-    def __init__(self, status: str):
+
+    def __init__(self, status: str, data: dict):
         self.status = status
+        self.data = data
+
+    def to_dict(self):
+        response_dict = {"status": self.status}
+        response_dict.update(self.data)
+        return response_dict
 
 
 class SuccessResponse(APIResponse):
-    def __init__(self, data: BaseModel):
-        super().__init__(status="success")
-        try:
-            self.data = data.model_dump()
-        except:
-            raise Exception(f"{type(data).__name__} is not JSON serializable")
+    def __init__(self, data: dict):
+        super().__init__(status="success", data=data)
 
 
 class ErrorResponse(APIResponse):
-    def __init__(self, message):
-        super().__init__(status="error")
-        self.message = message
+    def __init__(self, data: dict):
+        super().__init__(status="error", data=data)

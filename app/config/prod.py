@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 ENV_FILE_PATH = BASE_DIR / '.env'
+DATABASE_PATH = BASE_DIR / 'database/flask.db'
 
 load_dotenv(ENV_FILE_PATH)
 
@@ -27,6 +28,8 @@ class ProdConfig:
     TEMPLATES_AUTO_RELOAD = False
     STATIC_AUTO_RELOAD = False
     SECRET_KEY = os.environ.get("SECRET_KEY", "YOUR-FALLBACK-SECRET-KEY")
+    # Database
+    SQLALCHEMY_DATABASE_URI = "sqlite:///" + str(DATABASE_PATH)
     # Ratelimit
     RATELIMIT_ENABLED = RATELIMIT_ENABLED
     RATELIMIT_STORAGE_URI = RATELIMIT_STORAGE_URI
