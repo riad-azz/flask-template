@@ -3,6 +3,7 @@ Flask-Cors
 Flask-Limiter
 Flask-Caching
 Flask-SQLAlchemy
+pyjwt
 redis
 pytest
 pydantic

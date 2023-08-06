@@ -4,11 +4,6 @@ from flask import Flask
 # Other modules
 import os
 
-# Local modules
-from app.routes import api_bp, pages_bp
-from app.utils.logger import setup_flask_logger
-from app.extensions import db, cors, cache, limiter
-
 
 def create_app(debug: bool = False):
     # Check if debug environment variable was passed
@@ -33,19 +28,22 @@ def create_app(debug: bool = False):
         app.config.from_object(ProdConfig)
 
     # Uncomment to enable logger
+    # from app.utils.logger import setup_flask_logger
     # setup_flask_logger()
 
     # Initialize extensions
+    from app.extensions import db, cors, cache, limiter
     db.init_app(app)
     cors.init_app(app)
     cache.init_app(app)
     limiter.init_app(app)
 
     # Create database tables
-    from app.utils.db import create_tables
-    create_tables(app)
+    from app import models
+    db.create_all()
 
     # Register blueprints or routes
+    from app.routes import api_bp, pages_bp
     app.register_blueprint(api_bp)
     app.register_blueprint(pages_bp)
 

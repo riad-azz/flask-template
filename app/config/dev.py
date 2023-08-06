@@ -5,11 +5,11 @@ from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 ENV_FILE_PATH = BASE_DIR / '.env.dev'
-DATABASE_PATH = BASE_DIR / 'database/flask.db'
 load_dotenv(ENV_FILE_PATH)
 
 # Flask
 SECRET_KEY = os.environ.get("SECRET_KEY", "YOUR-FALLBACK-SECRET-KEY")
+DATABASE_URI = "sqlite:///flask.db"
 # Ratelimit
 RATELIMIT_ENABLED = os.environ.get("RATELIMIT_ENABLED", "False") == "True"
 RATELIMIT_STORAGE_URI = os.environ.get("RATELIMIT_STORAGE_URI", "memory://")
@@ -29,7 +29,7 @@ class DevConfig:
     EXPLAIN_TEMPLATE_LOADING = False
     SECRET_KEY = SECRET_KEY
     # Database
-    SQLALCHEMY_DATABASE_URI = "sqlite:///" + str(DATABASE_PATH)
+    SQLALCHEMY_DATABASE_URI = DATABASE_URI
     # Ratelimit
     RATELIMIT_ENABLED = RATELIMIT_ENABLED
     RATELIMIT_STORAGE_URI = RATELIMIT_STORAGE_URI
