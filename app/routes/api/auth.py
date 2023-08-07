@@ -10,7 +10,7 @@ from datetime import datetime
 from email_validator import validate_email, EmailNotValidError
 
 # Local modules
-from app.extensions import db
+from app.extensions import db, limiter
 from app.utils.api import success_response
 from app.utils.auth import generate_jwt_token
 from app.models.auth import User, TokenBlocklist
@@ -19,6 +19,7 @@ auth_bp = Blueprint("auth", __name__, url_prefix="/auth")
 
 
 @auth_bp.route("/login", methods=['POST'])
+@limiter.limit("5/minute")
 def login():
     user_data = request.get_json()
     email = user_data.get("email")
@@ -50,6 +51,7 @@ def login():
 
 
 @auth_bp.route("/register", methods=['POST'])
+@limiter.limit("10/minute")
 def register():
     user_data = request.get_json()
     email = user_data.get("email")

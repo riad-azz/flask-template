@@ -9,7 +9,7 @@ load_dotenv(ENV_FILE_PATH)
 
 # Flask
 SECRET_KEY = os.environ.get("SECRET_KEY", "YOUR-FALLBACK-SECRET-KEY")
-DATABASE_URI = "sqlite:///flask.db"
+DATABASE_URI = "sqlite:///database.db"
 # Ratelimit
 RATELIMIT_ENABLED = os.environ.get("RATELIMIT_ENABLED", "False") == "True"
 RATELIMIT_STORAGE_URI = os.environ.get("RATELIMIT_STORAGE_URI", "memory://")
@@ -30,6 +30,10 @@ class DevConfig:
     SECRET_KEY = SECRET_KEY
     # Database
     SQLALCHEMY_DATABASE_URI = DATABASE_URI
+    # JWT Auth
+    JWT_SECRET_KEY = os.environ.get("JWT_SECRET_KEY", "YOUR-JWT-SECRET-KEY")
+    JWT_COOKIE_SECURE = True
+    JWT_TOKEN_LOCATION = ["headers", "cookies", "json"]
     # Ratelimit
     RATELIMIT_ENABLED = RATELIMIT_ENABLED
     RATELIMIT_STORAGE_URI = RATELIMIT_STORAGE_URI

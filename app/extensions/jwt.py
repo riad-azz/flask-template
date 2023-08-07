@@ -25,6 +25,7 @@ def user_lookup_callback(_jwt_header, jwt_data: dict):
     return User.query.filter_by(id=identity).one_or_none()
 
 
+# Callback function to check if a JWT exists in the database blocklist
 @jwt.token_in_blocklist_loader
 def check_if_token_is_revoked(_jwt_header, jwt_data: dict):
     jti = jwt_data["jti"]
