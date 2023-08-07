@@ -5,23 +5,25 @@ from flask import Response
 from app.utils.models import SuccessResponse, ErrorResponse
 
 
-def success_response(data: str | dict = None, status: int = 200):
-    if type(data) == str or data is None:
-        message = data or ""
-        data = {"message": message}
-    else:
-        data = {"data": data}
-    response_data = SuccessResponse(data=data)
+def success_response(data=None, status: int = 200, message: str = None, headers: dict = None, cookies: dict = None):
+    response_data = SuccessResponse(data=data, message=message)
     serialized_data = response_data.to_json()
     response = Response(serialized_data, mimetype="application/json")
+
+    if headers:
+        response.headers.update(headers)
+
+    if cookies:
+        for key, value in cookies.items():
+            response.set_cookie(key, value)
+
     return response, status
 
 
-def error_response(data: str | dict = None, status: int = 500):
-    if data is None or type(data) == str:
-        message = data or "Internal Server Error"
-        data = {"message": message}
-    response_data = ErrorResponse(data=data)
+def error_response(message: str = None, status: int = 500, headers: dict = None):
+    response_data = ErrorResponse(message=message)
     serialized_data = response_data.to_json()
     response = Response(serialized_data, mimetype="application/json")
+    if headers:
+        response.headers.update(headers)
     return response, status

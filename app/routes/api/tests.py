@@ -19,14 +19,14 @@ def limit_tests_access():
 
 @tests_bp.route("/hello", methods=['GET'])
 def test_api_hello():
-    return success_response("Hello World!!", 200)
+    return success_response(message="Hello World!!")
 
 
 @tests_bp.route("/success", methods=['GET'])
 def test_api_success():
     data = TestModel(title="riad-azz", content="Successful API response")
     data_dict = data.model_dump()
-    return success_response(data_dict, 200)
+    return success_response(data_dict)
 
 
 @tests_bp.route("/ratelimit", methods=['GET'])
@@ -34,14 +34,14 @@ def test_api_success():
 def test_api_ratelimit():
     data = TestModel(title="riad-azz", content="Rate limit API response")
     data_dict = data.model_dump()
-    return success_response(data_dict, 200)
+    return success_response(data_dict)
 
 
 @tests_bp.route("/cached", methods=['GET'])
 def test_api_cached():
     data = TestModel(title="riad-azz", content="Cached API response")
     data_dict = data.model_dump()
-    return success_response(data_dict, 200)
+    return success_response(data_dict)
 
 
 @tests_bp.route("/bad-request", methods=['GET'])

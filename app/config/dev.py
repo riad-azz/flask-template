@@ -17,7 +17,7 @@ RATELIMIT_STORAGE_URI = os.environ.get("RATELIMIT_STORAGE_URI", "memory://")
 CACHE_TYPE = os.environ.get("CACHE_TYPE", "SimpleCache")
 CACHE_ENABLED = os.environ.get("CACHE_ENABLED", "False") == "True"
 CACHE_STORAGE_URL = os.environ.get("CACHE_STORAGE_URL", None)
-CACHE_EXEMPTED_ROUTES = ["/api/example/route/", ]
+CACHE_EXEMPTED_ROUTES = ["/api/auth/", ]
 
 
 class DevConfig:
