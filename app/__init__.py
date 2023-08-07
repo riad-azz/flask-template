@@ -32,8 +32,9 @@ def create_app(debug: bool = False):
     # setup_flask_logger()
 
     # Initialize extensions
-    from app.extensions import db, cors, cache, limiter
+    from app.extensions import db, jwt, cors, cache, limiter
     db.init_app(app)
+    jwt.init_app(app)
     cors.init_app(app)
     cache.init_app(app)
     limiter.init_app(app)
