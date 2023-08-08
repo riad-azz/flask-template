@@ -33,7 +33,7 @@ class ProdConfig:
     # JWT Auth
     JWT_SECRET_KEY = os.environ.get("JWT_SECRET_KEY", "YOUR-JWT-SECRET-KEY")
     JWT_COOKIE_SECURE = True
-    JWT_TOKEN_LOCATION = ["headers", "cookies", "json"]
+    JWT_TOKEN_LOCATION = ["cookies", "headers"]  # or headers, json, query_string
     # Ratelimit
     RATELIMIT_ENABLED = RATELIMIT_ENABLED
     RATELIMIT_STORAGE_URI = RATELIMIT_STORAGE_URI

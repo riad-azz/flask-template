@@ -3,7 +3,7 @@ from flask import Blueprint, request
 from flask_limiter import ExemptionScope
 from werkzeug.exceptions import HTTPException
 from flask_limiter.errors import RateLimitExceeded
-from flask_jwt_extended.exceptions import RevokedTokenError
+from jwt.exceptions import PyJWTError
 
 # Other modules
 import logging
@@ -26,7 +26,7 @@ def handle_error(error):
     if isinstance(error, RateLimitExceeded):
         current_limit = error.limit.limit
         return error_response(f"Too many requests: {current_limit}", 429)
-    elif isinstance(error, RevokedTokenError):
+    elif isinstance(error, PyJWTError):
         return error_response(f"Unauthorized, request denied", 401)
     elif isinstance(error, HTTPException):
         return error_response(error.description, error.code)

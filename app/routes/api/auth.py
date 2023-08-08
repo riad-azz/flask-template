@@ -21,6 +21,15 @@ auth_bp = Blueprint("auth", __name__, url_prefix="/auth")
 @auth_bp.route("/login", methods=['POST'])
 @limiter.limit("5/minute")
 def login():
+    """
+    Logs in a user by validating their email and password, generating an access token, and returning a success response.
+
+    Returns:
+        A success response containing the access token and a message indicating successful login.
+
+    Raises:
+        BadRequest: If the email or password is missing, the email address is invalid, the user does not exist, or the credentials are invalid.
+    """
     user_data = request.get_json()
     email = user_data.get("email")
     password = user_data.get("password")
@@ -53,6 +62,19 @@ def login():
 @auth_bp.route("/register", methods=['POST'])
 @limiter.limit("10/minute")
 def register():
+    """
+    Register a new user.
+    This function handles the registration of a new user. 
+    It expects a JSON payload containing the user's email and password. 
+
+    Returns:
+        A success response containing the access token and a message.
+
+    Raises:
+        BadRequest: If the email address or password is missing, or if the email address is invalid.
+        Conflict: If a user with the same email address already exists.
+        InternalServerError: If an error occurs during the registration process.
+    """
     user_data = request.get_json()
     email = user_data.get("email")
     password = user_data.get("password")
@@ -93,6 +115,18 @@ def register():
 @auth_bp.route("/session")
 @jwt_required()
 def session():
+    """
+    Retrieves the session information for the authenticated user.
+
+    Returns:
+        dict: A dictionary containing the session information. The dictionary has the following keys:
+            - id (int): The ID of the user.
+            - name (str): The name of the user.
+            - email (str): The email address of the user.
+
+    Raises:
+        jwt.exceptions.InvalidTokenError: If the JWT token is invalid or expired.
+    """
     data = {
         "id": current_user.id,
         "name": current_user.name,
@@ -104,6 +138,12 @@ def session():
 @auth_bp.route("/logout", methods=['POST'])
 @jwt_required()
 def logout():
+    """
+    Logs out the user by adding the JWT token to the token blocklist.
+
+    Returns:
+        A success response message indicating that the user has been logged out successfully.
+    """
     token = get_jwt()
     jti = token["jti"]
     ttype = token["type"]
