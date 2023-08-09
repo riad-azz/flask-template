@@ -1,3 +1,3 @@
-from .auth import User, TokenBlocklist
+from .auth import User
 
-__all__ = [User, TokenBlocklist, ]
+__all__ = [User, ]

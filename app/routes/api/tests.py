@@ -37,13 +37,6 @@ def test_api_ratelimit():
     return success_response(data_dict)
 
 
-@tests_bp.route("/cached", methods=['GET'])
-def test_api_cached():
-    data = TestModel(title="riad-azz", content="Cached API response")
-    data_dict = data.model_dump()
-    return success_response(data_dict)
-
-
 @tests_bp.route("/bad-request", methods=['GET'])
 def test_api_bad_request():
     raise BadRequest("Bad Request")

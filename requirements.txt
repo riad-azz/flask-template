@@ -1,9 +1,7 @@
 Flask
 Flask-Cors
 Flask-Limiter
-Flask-Caching
 Flask-SQLAlchemy
-flask-jwt-extended
 redis
 pytest
 pydantic

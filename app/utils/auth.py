@@ -1,19 +1,5 @@
-# Flask modules
-from flask_jwt_extended import create_access_token
-
 # Other modules
 import uuid
-
-
-def generate_jwt_token(user, additional_claims: dict = None):
-    if additional_claims is None:
-        additional_claims = dict()
-
-    token_version = {"version": user.token_version}
-    additional_claims.update(token_version)
-
-    token = create_access_token(identity=user, additional_claims=additional_claims)
-    return token
 
 
 def shorten_uuid(input_uuid: uuid.UUID, length: int = 24):

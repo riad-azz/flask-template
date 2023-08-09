@@ -13,11 +13,6 @@ DATABASE_URI = "sqlite:///database.db"
 # Ratelimit
 RATELIMIT_ENABLED = os.environ.get("RATELIMIT_ENABLED", "False") == "True"
 RATELIMIT_STORAGE_URI = os.environ.get("RATELIMIT_STORAGE_URI", "memory://")
-# Caching
-CACHE_TYPE = os.environ.get("CACHE_TYPE", "SimpleCache")
-CACHE_ENABLED = os.environ.get("CACHE_ENABLED", "False") == "True"
-CACHE_STORAGE_URL = os.environ.get("CACHE_STORAGE_URL", None)
-CACHE_EXEMPTED_ROUTES = ["/api/auth/", ]
 
 
 class DevConfig:
@@ -30,23 +25,9 @@ class DevConfig:
     SECRET_KEY = SECRET_KEY
     # Database
     SQLALCHEMY_DATABASE_URI = DATABASE_URI
-    # JWT Auth
-    JWT_SECRET_KEY = os.environ.get("JWT_SECRET_KEY", "YOUR-JWT-SECRET-KEY")
-    JWT_COOKIE_SECURE = False
-    JWT_TOKEN_LOCATION = ["headers", "cookies", "json", "query_string"]
     # Ratelimit
     RATELIMIT_ENABLED = RATELIMIT_ENABLED
     RATELIMIT_STORAGE_URI = RATELIMIT_STORAGE_URI
     RATELIMIT_STRATEGY = "fixed-window"  # or "moving-window"
     RATELIMIT_IN_MEMORY_FALLBACK_ENABLED = True
     RATELIMIT_HEADERS_ENABLED = True
-    # Caching
-    CACHE_ENABLED = CACHE_ENABLED
-    CACHE_TYPE = CACHE_TYPE
-    CACHE_KEY_PREFIX = "flask_cache_"
-    CACHE_EXEMPTED_ROUTES = CACHE_EXEMPTED_ROUTES
-    if CACHE_TYPE != "SimpleCache" and CACHE_STORAGE_URL:
-        CACHE_REDIS_URL = CACHE_STORAGE_URL
-        CACHE_DEFAULT_TIMEOUT = 180
-    else:
-        CACHE_DEFAULT_TIMEOUT = 60
