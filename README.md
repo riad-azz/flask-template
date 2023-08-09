@@ -14,17 +14,9 @@ Here is a list of the available features:
 
 - **Web UI**: The template includes a basic web user interface.
 
-- **JWT Authentication** : JSON Web Token (JWT) authentication is integrated to provide secure user authentication and
-  authorization. This allows users to access protected resources and endpoints based on their authenticated identity,
-  enhancing the overall security of the application.
-
 - **Rate Limiting**: To protect your application from abuse, rate limiting is enforced.
 
 - **CORS**: Cross-origin resource sharing (CORS) is configured to manage the server's shared resources.
-
-- **CACHING**: The template includes caching to optimize performance and reduce server load. Caching stores frequently
-  requested data temporarily, leading to faster API responses. It enhances user experience and helps handle high traffic
-  efficiently.
 
 - **Logging**: The application includes logging capabilities to record relevant events, errors, and messages. Logging
   helps in monitoring and troubleshooting the application during development and production.
