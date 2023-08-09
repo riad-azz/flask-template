@@ -1,8 +1,5 @@
 Flask
 Flask-Cors
-Flask-Limiter
-Flask-SQLAlchemy
-redis
 pytest
 pydantic
 gunicorn

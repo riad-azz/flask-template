@@ -32,14 +32,9 @@ def create_app(debug: bool = False):
     # setup_flask_logger()
 
     # Initialize extensions
-    from app.extensions import db, cors, limiter
-    db.init_app(app)
+    from app.extensions import cors, limiter
     cors.init_app(app)
     limiter.init_app(app)
-
-    # Create database tables
-    from app import models
-    db.create_all()
 
     # Register blueprints or routes
     from app.routes import api_bp, pages_bp
