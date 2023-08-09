@@ -5,13 +5,18 @@ from flask import Response
 from app.utils.models import SuccessResponse, ErrorResponse
 
 
-def success_response(data=None, status: int = 200, message: str = None, headers: dict = None, cookies: dict = None):
+def success_response(data=None, status: int = 200, message: str = None, headers: dict = None, cookies: dict = None,
+                     cache_response: bool = False):
     response_data = SuccessResponse(data=data, message=message)
     serialized_data = response_data.to_json()
     response = Response(serialized_data, mimetype="application/json")
 
     if headers:
         response.headers.update(headers)
+
+    if cache_response:
+        cache_header = {"Is-Cached-Response": "1"}
+        response.headers.update(cache_header)
 
     if cookies:
         for key, value in cookies.items():

@@ -48,8 +48,9 @@ def before_request():
 
 @api_bp.after_request
 def after_request(response):
-    if response.status_code == 200:
-        # Cache the response if it is successful (status code 200)
+    if response.headers.get("Is-Cached-Response") == "1":
+        # Cache the response and remove internal header
+        response.headers.remove("Is-Cached-Response")
         set_cached_response(request, response)
     return response
 
