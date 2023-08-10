@@ -32,20 +32,26 @@ def create_app(debug: bool = False):
     # setup_flask_logger()
 
     # Initialize extensions
-    from app.extensions import db, jwt, cors, cache, limiter
-    db.init_app(app)
-    jwt.init_app(app)
+    from app.extensions import db, cors, csrf, cache, bcrypt, limiter, login_manager
+    # Other
     cors.init_app(app)
     cache.init_app(app)
     limiter.init_app(app)
+    # Database
+    db.init_app(app)
+    # Authentication
+    csrf.init_app(app)
+    bcrypt.init_app(app)
+    login_manager.init_app(app)
 
     # Create database tables
     from app import models
     db.create_all()
 
     # Register blueprints or routes
-    from app.routes import api_bp, pages_bp
+    from app.routes import api_bp, pages_bp, auth_bp
     app.register_blueprint(api_bp)
+    app.register_blueprint(auth_bp)
     app.register_blueprint(pages_bp)
 
     # Global Ratelimit Checker

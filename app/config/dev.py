@@ -30,10 +30,6 @@ class DevConfig:
     SECRET_KEY = SECRET_KEY
     # Database
     SQLALCHEMY_DATABASE_URI = DATABASE_URI
-    # JWT Auth
-    JWT_SECRET_KEY = os.environ.get("JWT_SECRET_KEY", "YOUR-JWT-SECRET-KEY")
-    JWT_COOKIE_SECURE = False
-    JWT_TOKEN_LOCATION = ["headers", "cookies", "json", "query_string"]
     # Ratelimit
     RATELIMIT_ENABLED = RATELIMIT_ENABLED
     RATELIMIT_STORAGE_URI = RATELIMIT_STORAGE_URI

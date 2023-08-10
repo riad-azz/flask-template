@@ -1,4 +1,6 @@
+# Other modules
 import json
+import uuid
 
 
 class SerializableClass:
@@ -12,7 +14,7 @@ class SerializableClass:
         return self.__dict__
 
     @staticmethod
-    def is_json_serializable(obj):
+    def is_serializable(obj):
         try:
             json.dumps(obj)
             return True
@@ -20,33 +22,20 @@ class SerializableClass:
             return False
 
 
-class APIResponse(SerializableClass):
+def shorten_uuid(input_uuid: uuid.UUID, length: int = 24) -> str:
+    # Convert UUID to a hexadecimal string
+    str_uuid = str(input_uuid)
+    hex_uuid = str_uuid.replace('-', '')
 
-    def __init__(self, status: str, message: str, data=None):
-        self.status = status
-        self.message = message
-        self.data = data
+    # Truncate to the desired length
+    truncated_hex = hex_uuid[:length]
 
-    def to_dict(self):
-        response_dict = dict()
-        response_dict["status"] = self.status
-
-        if self.message:
-            response_dict["message"] = self.message
-
-        if self.data:
-            response_dict["data"] = self.data
-
-        return response_dict
+    return truncated_hex
 
 
-class SuccessResponse(APIResponse):
-    def __init__(self, data=None, message: str = ""):
-        super().__init__(status="success", message=message, data=data)
+def generate_uuid(length: int = None) -> str:
+    if length:
+        return shorten_uuid(uuid.uuid4())
 
-
-class ErrorResponse(APIResponse):
-    def __init__(self, message: str = None):
-        if message is None:
-            message = "Internal Server Error"
-        super().__init__(status="error", message=message)
+    str_uuid = str(uuid.uuid4())
+    return str_uuid

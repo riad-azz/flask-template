@@ -30,10 +30,6 @@ class ProdConfig:
     SECRET_KEY = os.environ.get("SECRET_KEY", "YOUR-FALLBACK-SECRET-KEY")
     # Database
     SQLALCHEMY_DATABASE_URI = DATABASE_URI
-    # JWT Auth
-    JWT_SECRET_KEY = os.environ.get("JWT_SECRET_KEY", "YOUR-JWT-SECRET-KEY")
-    JWT_COOKIE_SECURE = True
-    JWT_TOKEN_LOCATION = ["cookies", "headers"]  # or headers, json, query_string
     # Ratelimit
     RATELIMIT_ENABLED = RATELIMIT_ENABLED
     RATELIMIT_STORAGE_URI = RATELIMIT_STORAGE_URI
