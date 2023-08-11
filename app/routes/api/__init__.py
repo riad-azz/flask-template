@@ -45,8 +45,9 @@ def before_request():
 @api_bp.after_request
 def after_request(response: Response):
     if response.headers.get("Is-Cached-Response") == "1":
-        # Cache the response and remove internal header
+        # Remove internal cache header
         response.headers.remove("Is-Cached-Response")
+        # Cache the response
         set_cached_response(request, response)
     return response
 

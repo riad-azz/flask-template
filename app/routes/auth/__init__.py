@@ -1,5 +1,5 @@
 # Flask modules
-from flask import Blueprint, request, redirect, url_for, flash, render_template
+from flask import Blueprint, redirect, url_for, flash, render_template
 from flask_login import login_required, current_user
 from flask_login import login_user, logout_user
 
@@ -11,7 +11,7 @@ from app.models.auth import User
 from app.extensions import db, bcrypt, limiter
 from app.forms.auth import LoginForm, RegistrationForm
 
-auth_bp = Blueprint("auth", __name__, url_prefix="/account")
+auth_bp = Blueprint("auth", __name__, url_prefix="/auth")
 
 
 @auth_bp.route("/login", methods=['GET', 'POST'])

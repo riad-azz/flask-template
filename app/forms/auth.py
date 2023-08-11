@@ -9,10 +9,10 @@ from app.models.auth import User
 
 
 class LoginForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Email()], render_kw={'placeholder': 'example@email.com'})
+    email = StringField('Email address', validators=[DataRequired(), Email()], render_kw={'placeholder': 'example@email.com'})
     password = PasswordField('Password', validators=[DataRequired()], render_kw={'placeholder': '********'})
     remember_me = BooleanField('Remember me', default=False)
-    submit = SubmitField('Log In')
+    submit = SubmitField('Login')
 
 
 class RegistrationForm(FlaskForm):
@@ -21,7 +21,7 @@ class RegistrationForm(FlaskForm):
         Length(min=2, max=80),
         Regexp(r'^[a-zA-Z0-9_]+$', message='Name must contain only letters, numbers, and underscores.')],
                        render_kw={'placeholder': 'Display name'})
-    email = StringField('Email', validators=[
+    email = StringField('Email address', validators=[
         DataRequired(),
         Email()
     ], render_kw={'placeholder': 'example@email.com'})

@@ -8,7 +8,6 @@ Register
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <h2 class="text-center">Register</h2>
             {% with messages = get_flashed_messages() %}
             {% if messages %}
             <div class="alert alert-danger">
@@ -16,7 +15,7 @@ Register
             </div>
             {% endif %}
             {% endwith %}
-            <form method="POST">
+            <form method="POST" class="bg-light p-4 border rounded">
                 {{ form.hidden_tag() }}
                 <div class="form-group">
                     {{ form.name.label(class="form-control-label") }}
@@ -57,6 +56,9 @@ Register
                 </div>
                 <div class="form-group">
                     {{ form.submit(class="btn btn-primary btn-block") }}
+                </div>
+                <div class="text-center">
+                    <p>Already have an account? <a href="{{ url_for('auth.login') }}">Login</a></p>
                 </div>
             </form>
         </div>
