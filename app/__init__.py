@@ -33,15 +33,12 @@ def create_app(debug: bool = False):
 
     # Initialize extensions
     from app.extensions import db, cors, csrf, cache, bcrypt, limiter, login_manager
-    # Other
-    cors.init_app(app)
-    cache.init_app(app)
-    limiter.init_app(app)
-    # Database
     db.init_app(app)
-    # Authentication
+    cors.init_app(app)
     csrf.init_app(app)
+    cache.init_app(app)
     bcrypt.init_app(app)
+    limiter.init_app(app)
     login_manager.init_app(app)
 
     # Create database tables
