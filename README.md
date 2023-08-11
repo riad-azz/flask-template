@@ -94,7 +94,7 @@ You can check `app/routes/api/tests.py` to get an idea of how the API should wor
 
 ### API Schemas
 
-All the schemas served with the API that are passed to the `success_response` must be either a `string` or a `dict`. In
+All the schemas served with the API that are passed to the `success_response` must be **json serializable**. In
 this example we use `BaseModel` from [pydantic](https://docs.pydantic.dev/latest/) which allows us to turn the model
 into a dict using the `model_dump` function:
 

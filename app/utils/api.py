@@ -1,4 +1,6 @@
 # Flask modules
+import json
+
 from flask import Response
 
 # Local modules
@@ -20,6 +22,8 @@ class APIResponse(SerializableClass):
             response_dict["message"] = self.message
 
         if self.data:
+            if not SerializableClass.is_serializable(self.data):
+                raise TypeError(f"{self.data} is not json serializable")
             response_dict["data"] = self.data
 
         return response_dict
