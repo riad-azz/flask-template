@@ -14,7 +14,7 @@ from app.forms.auth import LoginForm, RegistrationForm
 auth_bp = Blueprint("auth", __name__, url_prefix="/auth")
 
 
-@auth_bp.route("/login", methods=['GET', 'POST'])
+@auth_bp.route("/login", methods=["GET", "POST"])
 @limiter.limit("30/minute")
 def login():
     if current_user.is_authenticated:
@@ -30,15 +30,15 @@ def login():
         user = User.query.filter_by(email=email).one_or_none()
         if user and bcrypt.check_password_hash(user.password, password):
             login_user(user, remember=remember_me)
-            flash(f"Logged in successfully as {user.name}", 'success')
+            flash(f"Logged in successfully as {user.name}", "success")
             return redirect(url_for("pages.core.home_route"))
         else:
-            flash("Invalid email or password", 'danger')
+            flash("Invalid email or password", "danger")
 
-    return render_template('auth/login.html', form=form)
+    return render_template("auth/login.html", form=form)
 
 
-@auth_bp.route("/register", methods=['GET', 'POST'])
+@auth_bp.route("/register", methods=["GET", "POST"])
 @limiter.limit("30/minute")
 def register():
     if current_user.is_authenticated:
@@ -61,13 +61,16 @@ def register():
         # Login user
         login_user(new_user)
 
-        flash(f'Account created successfully! You are now logged in as {new_user.name}.', 'success')
+        flash(
+            f"Account created successfully! You are now logged in as {new_user.name}.",
+            "success",
+        )
         return redirect(url_for("pages.core.home_route"))
 
-    return render_template('auth/register.html', form=form)
+    return render_template("auth/register.html", form=form)
 
 
-@auth_bp.route("/logout", methods=['GET', 'POST'])
+@auth_bp.route("/logout", methods=["GET", "POST"])
 @login_required
 def logout():
     logout_user()

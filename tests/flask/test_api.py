@@ -41,7 +41,7 @@ def test_api_ratelimit(app):
     assert limited_response.status_code == 429
     assert limited_response.json["status"] == "error"
     assert limited_response.json["message"] == "Too many requests: 1 per 1 minute"
-    assert limited_response.headers['Retry-After'] is not None
+    assert limited_response.headers["Retry-After"] is not None
 
 
 def test_api_bad_request(app):
@@ -57,7 +57,10 @@ def test_api_forbidden(app):
         response = client.get("/api/tests/forbidden")
         assert response.status_code == 403
         assert response.json["status"] == "error"
-        assert response.json["message"] == "You don't have the permission to access the requested resource"
+        assert (
+            response.json["message"]
+            == "You don't have the permission to access the requested resource"
+        )
 
 
 def test_api_internal_server_error(app):

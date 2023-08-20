@@ -6,7 +6,6 @@ from app.utils.models import SerializableClass
 
 
 class APIResponse(SerializableClass):
-
     def __init__(self, status: str, message: str, data=None):
         self.status = status
         self.message = message
@@ -37,8 +36,30 @@ class ErrorResponse(APIResponse):
         super().__init__(status="error", message=message)
 
 
-def success_response(data=None, status: int = 200, message: str = None, headers: dict = None, cookies: dict = None,
-                     cache_response: bool = False):
+def success_response(
+    data=None,
+    status: int = 200,
+    message: str = None,
+    headers: dict = None,
+    cookies: dict = None,
+    cache_response: bool = False,
+):
+    """
+    Generate a success response with the provided data, status code, message, headers, cookies, and cache response flag.
+
+    Parameters:
+        data (Any, optional): The data to be included in the response. Defaults to None.
+        status (int, optional): The status code of the response. Defaults to 200.
+        message (str, optional): The message to be included in the response. Defaults to None.
+        headers (dict, optional): The headers to be included in the response. Defaults to None.
+        cookies (dict, optional): The cookies to be included in the response. Defaults to None.
+        cache_response (bool, optional): Flag to indicate if the response should be cached. Defaults to False.
+
+    Returns:
+        tuple: A tuple containing the response object and the status code.
+            - response (Response): The success response object.
+            - status (int): The status code of the response.
+    """
     response_data = SuccessResponse(data=data, message=message)
     serialized_data = response_data.to_json()
     response = Response(serialized_data, mimetype="application/json")
@@ -57,8 +78,26 @@ def success_response(data=None, status: int = 200, message: str = None, headers:
     return response, status
 
 
-def error_response(message: str = "Internal Server Error", status: int = 500, headers: dict = None,
-                   cookies: dict = None):
+def error_response(
+    message: str = "Internal Server Error",
+    status: int = 500,
+    headers: dict = None,
+    cookies: dict = None,
+):
+    """
+    Generate an error response with the given message, status code, headers, and cookies.
+
+    Parameters:
+        message (str): The error message to be included in the response. Defaults to "Internal Server Error".
+        status (int): The status code to be included in the response. Defaults to 500.
+        headers (dict): A dictionary of additional headers to be included in the response. Defaults to None.
+        cookies (dict): A dictionary of cookies to be included in the response. Defaults to None.
+
+    Returns:
+        tuple: A tuple containing the response object and the status code.
+            - response (Response): The error response object.
+            - status (int): The status code of the response.
+    """
     response_data = ErrorResponse(message=message)
     serialized_data = response_data.to_json()
     response = Response(serialized_data, mimetype="application/json")

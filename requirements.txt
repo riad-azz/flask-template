@@ -7,6 +7,7 @@ Flask-Limiter
 Flask-Caching
 Flask-SQLAlchemy
 redis
+black
 pytest
 pydantic
 gunicorn

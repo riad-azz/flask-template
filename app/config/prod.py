@@ -4,7 +4,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
-ENV_FILE_PATH = BASE_DIR / '.env'
+ENV_FILE_PATH = BASE_DIR / ".env"
 
 load_dotenv(ENV_FILE_PATH)
 
@@ -18,7 +18,9 @@ RATELIMIT_STORAGE_URI = os.environ.get("RATELIMIT_STORAGE_URI", "memory://")
 CACHE_TYPE = os.environ.get("CACHE_TYPE", "SimpleCache")
 CACHE_ENABLED = os.environ.get("CACHE_ENABLED", "False") == "True"
 CACHE_STORAGE_URL = os.environ.get("CACHE_STORAGE_URL", None)
-CACHE_EXEMPTED_ROUTES = ["/api/auth/", ]
+CACHE_EXEMPTED_ROUTES = [
+    "/api/auth/",
+]
 
 
 class ProdConfig:

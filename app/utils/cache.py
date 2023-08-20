@@ -10,19 +10,48 @@ from app.extensions import cache
 
 
 def make_api_cache_key(request: Request):
+    """
+    Generate a cache key for the API based on the request object.
+
+    Parameters:
+        request (Request): The request object containing the URL.
+
+    Returns:
+        str: The cache key for the API.
+    """
     full_url = request.url
     api_cache_url = full_url.split("/api/")[-1]
     return api_cache_url
 
 
 def is_exempted_route(route_path: str):
-    if any(route_path.startswith(x) for x in current_app.config["CACHE_EXEMPTED_ROUTES"]):
+    """
+    Check if the given route path is exempted from caching.
+
+    Parameters:
+        route_path (str): The path of the route to be checked.
+
+    Returns:
+        bool: True if the route path is exempted from caching, False otherwise.
+    """
+    if any(
+        route_path.startswith(x) for x in current_app.config["CACHE_EXEMPTED_ROUTES"]
+    ):
         return True
     return False
 
 
 def is_cachable(request: Request):
-    if not current_app.config['CACHE_ENABLED']:
+    """
+    Check if a request is cachable.
+
+    Parameters:
+        request (Request): The request object.
+
+    Returns:
+        bool: True if the request is cachable, False otherwise.
+    """
+    if not current_app.config["CACHE_ENABLED"]:
         return False
 
     if is_exempted_route(request.path):
@@ -32,6 +61,18 @@ def is_cachable(request: Request):
 
 
 def get_cached_response(request: Request):
+    """
+    Returns a cached response if available for the given request, otherwise returns None.
+
+    Parameters:
+        request (Request): The request object for which to retrieve the cached response.
+
+    Returns:
+        Any: The cached response if available, otherwise None.
+
+    Raises:
+        Exception: If there is an error when fetching the cached response.
+    """
     if not is_cachable(request):
         return None
 
@@ -47,6 +88,16 @@ def get_cached_response(request: Request):
 
 
 def set_cached_response(request: Request, response: Response):
+    """
+    Sets the cached response for the given request and response.
+
+    Parameters:
+        request (Request): The HTTP request object.
+        response (Response): The HTTP response object.
+
+    Returns:
+        None
+    """
     if not is_cachable(request):
         return None
 

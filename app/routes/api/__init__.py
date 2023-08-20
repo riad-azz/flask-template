@@ -17,9 +17,12 @@ from app.utils.cache import get_cached_response, set_cached_response
 from .tests import tests_bp
 
 api_bp = Blueprint("api", __name__, url_prefix="/api")
-limiter.exempt(api_bp, flags=ExemptionScope.DEFAULT |
-                             ExemptionScope.APPLICATION |
-                             ExemptionScope.DESCENDENTS)
+limiter.exempt(
+    api_bp,
+    flags=ExemptionScope.DEFAULT
+    | ExemptionScope.APPLICATION
+    | ExemptionScope.DESCENDENTS,
+)
 
 
 @api_bp.errorhandler(Exception)
