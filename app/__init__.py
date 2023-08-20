@@ -46,7 +46,7 @@ def create_app(debug: bool = False):
     limiter.init_app(app)
     login_manager.init_app(app)
 
-    # Create database tables
+    # Import all models and Create database tables
     from app import models
 
     db.create_all()
