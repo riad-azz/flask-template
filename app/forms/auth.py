@@ -58,11 +58,33 @@ class RegistrationForm(FlaskForm):
     submit = SubmitField("Register")
 
     def validate_email(self, email):
+        """
+        Validate an email address.
+
+        Parameters:
+            email (str): The email address to be validated.
+
+        Raises:
+            ValidationError: If the email address is already registered.
+
+        Returns:
+            None
+        """
         existing_user = User.query.filter_by(email=email.data).one_or_none()
         if existing_user:
             raise ValidationError("Email address already registered.")
 
     def validate_password(self, password):
+        """
+        Validates a password.
+
+        Parameters:
+            self (object): The instance of the class.
+            password (str): The password to be validated.
+
+        Raises:
+            ValidationError: If the password does not contain at least one letter and one digit.
+        """
         if not any(c.isalpha() for c in password.data) or not any(
             c.isdigit() for c in password.data
         ):
