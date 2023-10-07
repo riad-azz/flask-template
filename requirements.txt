@@ -13,3 +13,4 @@ pydantic
 gunicorn
 python-dotenv
 email-validator
+Werkzeug==2.3.7
