@@ -55,14 +55,40 @@ pip install -r requirements.txt
 python server.py
 ```
 
+4.To enable the Ratelimit and Cache features make sure to copy the `.env.example` content and create a `.env` file:
+
+```.env
+# Flask Variables
+SECRET_KEY="YOUR-SECRET-KEY"
+# Flask Ratelimit
+RATELIMIT_ENABLED="True"
+RATELIMIT_STORAGE_URI="memory://" # or redis://localhost:6379/0
+# Flask Cache
+CACHE_ENABLED="True"
+CACHE_TYPE="SimpleCache" # or RedisCache
+CACHE_STORAGE_URL="YOUR-REDIS-URL" # Required only for CACHE_TYPE RedisCache
+```
+
+**Note**: for development you need to create a `.env.dev` file.
+
 ### Running Tests
 
-you can write tests in `flask-template/tests`, where you will also find some examples.
+You can write tests in `flask-template/tests`, where you will also find some examples.
 
 To run the tests simply use the command:
 
 ```bash
 python -m pytest
+```
+
+You can switch between running the tests from `.env.dev` _(development environment)_ or `.env` _(production environment)_ by going to `flask-template/tests/__init__.py` and changing the value of `FLASK_DEBUG`:
+
+```python
+import os
+
+# Set 'False' to test with .env
+# Set 'True' to test with .env.dev
+os.environ["FLASK_DEBUG"] = "True"
 ```
 
 ### Dockerize The Application
