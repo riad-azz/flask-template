@@ -3,7 +3,7 @@ Flask-WTF
 Flask-Cors
 Flask-Login
 Flask-Bcrypt
-Flask-Limiter
+Flask-Limiter==3.12
 Flask-Caching
 Flask-SQLAlchemy
 redis
